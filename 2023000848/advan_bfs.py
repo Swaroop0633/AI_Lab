@@ -13,20 +13,42 @@ def bfs_shortest_path(graph, start, goal):
 
         if node not in visited:
             visited.add(node)
+
             for neighbor in graph[node]:
-                new_path = list(path)
-                new_path.append(neighbor)
-                queue.append(new_path)
+                if neighbor not in visited:
+                    new_path = list(path)
+                    new_path.append(neighbor)
+                    queue.append(new_path)
 
     return None
 
-graph = {
-    'A': ['B', 'C'],
-    'B': ['D', 'E'],
-    'C': ['F'],
-    'D': [],
-    'E': ['F'],
-    'F': []
-}
 
-print("Shortest Path:", bfs_shortest_path(graph, 'A', 'F'))
+
+graph = {}
+
+n = int(input("Enter number of nodes in the graph: "))
+
+print("Enter node names:")
+for i in range(n):
+    node = input(f"Node {i+1}: ")
+    graph[node] = []
+
+e = int(input("Enter number of edges: "))
+
+print("Enter edges (format: source destination)")
+for i in range(e):
+    src, dest = input(f"Edge {i+1}: ").split()
+    graph[src].append(dest)
+    graph[dest].append(src) 
+
+start_node = input("Enter start node: ")
+goal_node = input("Enter goal node: ")
+
+
+result = bfs_shortest_path(graph, start_node, goal_node)
+
+
+if result:
+    print("Shortest path found:", " -> ".join(result))
+else:
+    print("No path exists between the given nodes.")
