@@ -67,3 +67,4 @@ def vacuum_world():
 
 # Run the simulation
 vacuum_world()
+
